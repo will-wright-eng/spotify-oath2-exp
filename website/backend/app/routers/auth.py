@@ -74,7 +74,7 @@ async def callback(code: str, db: Session = Depends(get_db)):
 
         # Create URL-safe parameters
         params = "&".join([f"{key}={value}" for key, value in response_data.items()])
-        redirect_url = f"http://localhost:3000/auth/callback?{params}"
+        redirect_url = f"http://localhost/auth/callback?{params}"
 
         response = RedirectResponse(url=redirect_url)
 

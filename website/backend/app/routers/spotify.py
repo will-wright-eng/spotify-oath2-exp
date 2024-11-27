@@ -86,3 +86,9 @@ async def get_debug_sessions(db: Session = Depends(get_db)):
         "display_name": session.user.display_name,
         "expires_at": session.token_expires_at
     } for session in sessions]
+
+
+@router.get("/playlists")
+async def get_playlists(sp: spotipy.Spotify = Depends(get_spotify)):
+    results = sp.current_user_playlists()
+    return results

@@ -15,7 +15,17 @@ class SpotifyClient:
             client_id=settings.SPOTIFY_CLIENT_ID,
             client_secret=settings.SPOTIFY_CLIENT_SECRET,
             redirect_uri=settings.REDIRECT_URI,
-            # scope=settings.SCOPE,
+            scope=" ".join([
+                "user-read-recently-played",
+                "user-read-currently-playing",
+                "user-read-playback-state",
+                "user-top-read",
+                "user-read-private",
+                "user-read-email",
+                "user-library-read",
+                "playlist-read-private",
+                "playlist-read-collaborative",
+            ])
         )
 
     def get_auth_url(self) -> str:
