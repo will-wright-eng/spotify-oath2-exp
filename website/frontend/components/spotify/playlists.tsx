@@ -18,7 +18,7 @@ export function Playlists() {
   }
 
   return (
-    <Card>
+    <Card className="mx-auto max-w-7xl">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Your Playlists</CardTitle>
         <Button variant="outline" size="sm">

@@ -33,5 +33,9 @@ export const spotifyApi = {
     const { data } = await api.get('/spotify/playlists')
     console.log(data)
     return data
+  },
+  logout: async () => {
+    const { data } = await api.post('/auth/logout')
+    return data
   }
 }

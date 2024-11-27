@@ -6,13 +6,11 @@ import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { Profile } from "@/components/spotify/profile"
+import { LogoutButton } from "@/components/auth/logout-button"
 
 export function Header() {
   const pathname = usePathname()
-  const { user, clearSession } = useAuthStore()
-  const handleLogout = () => {
-    clearSession()
-  }
+  const { user } = useAuthStore()
   const routes = [
     {
       href: "/dashboard",
@@ -53,9 +51,7 @@ export function Header() {
           {user && (
             <>
               <Profile />
-              <Button variant="ghost" onClick={handleLogout}>
-                Logout
-              </Button>
+              <LogoutButton />
             </>
           )}
         </div>
