@@ -16,14 +16,18 @@ export function NowPlaying() {
       <h2 className="text-xl font-bold mb-2">Now Playing</h2>
       {data ? (
         <div className="flex items-center space-x-4">
-          <img
-            src={data.album.images[0].url}
-            alt={data.album.name}
-            className="w-16 h-16 rounded"
-          />
+          {data.album.images.length > 0 && (
+            <img
+              src={data.album.images[0].url}
+              alt={data.album.name}
+              className="w-16 h-16 rounded"
+            />
+          )}
           <div>
             <p className="font-medium">{data.name}</p>
-            <p className="text-gray-500">{data.artists[0].name}</p>
+            <p className="text-gray-500">
+              {data.artists.map((artist: { name: string }) => artist.name).join(', ')}
+            </p>
           </div>
         </div>
       ) : (

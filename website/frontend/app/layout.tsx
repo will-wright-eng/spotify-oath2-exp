@@ -1,11 +1,19 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from "@/components/theme-provider"
 import { Header } from '@/components/layout/header'
-import { Providers } from '@/components/providers'
+import { Providers } from '@/app/providers'
 
 const inter = Inter({ subsets: ['latin'] })
+
+// Add error boundary component
+const ErrorBoundary = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="error-boundary">
+      {children}
+    </div>
+  );
+};
 
 export const metadata: Metadata = {
   title: 'Spotify Dashboard',
@@ -18,25 +26,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ErrorBoundary>
           <Providers>
             <div className="relative min-h-screen flex flex-col">
               <Header />
-              <main className="flex-1">
-                <div className="container mx-auto py-4">
-                  {children}
-                </div>
-              </main>
+            <main className="flex-1">
+              <div className="container mx-auto py-4">
+                {children}
+              </div>
+            </main>
             </div>
           </Providers>
-        </ThemeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )
