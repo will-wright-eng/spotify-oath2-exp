@@ -28,14 +28,10 @@ async def get_table_schema(db: Session, table_name: str) -> List[Dict]:
     """Get schema information for a specific table"""
     query = text(f"PRAGMA table_info('{table_name}')")
     results = db.exec(query).all()
-    return [{
-        "cid": row[0],
-        "name": row[1],
-        "type": row[2],
-        "notnull": row[3],
-        "dflt_value": row[4],
-        "pk": row[5]
-    } for row in results]
+    return [
+        {"cid": row[0], "name": row[1], "type": row[2], "notnull": row[3], "dflt_value": row[4], "pk": row[5]}
+        for row in results
+    ]
 
 
 @router.get("/db-info")

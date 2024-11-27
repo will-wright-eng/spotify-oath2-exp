@@ -1,12 +1,13 @@
-from fastapi import HTTPException, Request, Depends
-from spotipy.oauth2 import SpotifyOAuth
-import spotipy
 from time import time
+
+import spotipy
+from fastapi import Depends, Request, HTTPException
 from sqlmodel import Session, select
+from spotipy.oauth2 import SpotifyOAuth
 
 from app.core.config import settings
-from app.core.database import get_db
 from app.core.models import UserSession
+from app.core.database import get_db
 
 
 class SpotifyClient:
@@ -15,17 +16,19 @@ class SpotifyClient:
             client_id=settings.SPOTIFY_CLIENT_ID,
             client_secret=settings.SPOTIFY_CLIENT_SECRET,
             redirect_uri=settings.REDIRECT_URI,
-            scope=" ".join([
-                "user-read-recently-played",
-                "user-read-currently-playing",
-                "user-read-playback-state",
-                "user-top-read",
-                "user-read-private",
-                "user-read-email",
-                "user-library-read",
-                "playlist-read-private",
-                "playlist-read-collaborative",
-            ])
+            scope=" ".join(
+                [
+                    "user-read-recently-played",
+                    "user-read-currently-playing",
+                    "user-read-playback-state",
+                    "user-top-read",
+                    "user-read-private",
+                    "user-read-email",
+                    "user-library-read",
+                    "playlist-read-private",
+                    "playlist-read-collaborative",
+                ]
+            ),
         )
 
     def get_auth_url(self) -> str:

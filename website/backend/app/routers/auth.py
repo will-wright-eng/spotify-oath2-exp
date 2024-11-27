@@ -1,13 +1,13 @@
 from time import time
-from fastapi import APIRouter, Depends, HTTPException
-from sqlmodel import Session, select
-from fastapi.responses import JSONResponse, RedirectResponse
-import webbrowser
 
+from fastapi import Depends, APIRouter, HTTPException
+from sqlmodel import Session, select
+from fastapi.responses import RedirectResponse
+
+from app.core.logger import log
 from app.core.models import User, UserSession
 from app.core.database import get_db
 from app.core.spotify_client import spotify_client
-from app.core.logger import log
 
 router = APIRouter()
 
@@ -69,7 +69,7 @@ async def callback(code: str, db: Session = Depends(get_db)):
             "session_id": str(user_session.id),
             "user_id": str(db_user.id),
             "spotify_id": db_user.spotify_id,
-            "display_name": db_user.display_name
+            "display_name": db_user.display_name,
         }
 
         # Create URL-safe parameters
@@ -83,9 +83,9 @@ async def callback(code: str, db: Session = Depends(get_db)):
             key="session_id",
             value=str(user_session.id),
             httponly=True,  # Makes cookie inaccessible to JavaScript
-            secure=True,    # Only send cookie over HTTPS
-            samesite="lax", # Provides some CSRF protection
-            max_age=3600 * 24 * 30  # 30 days in seconds
+            secure=True,  # Only send cookie over HTTPS
+            samesite="lax",  # Provides some CSRF protection
+            max_age=3600 * 24 * 30,  # 30 days in seconds
         )
 
         return response

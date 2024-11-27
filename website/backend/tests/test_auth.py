@@ -1,8 +1,10 @@
-import pytest
 from unittest.mock import Mock, patch
-from fastapi.testclient import TestClient
+
+import pytest
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
+from fastapi.testclient import TestClient
+
 from app.main import app
 from app.core.database import get_db
 from app.core.spotify_client import spotify_client

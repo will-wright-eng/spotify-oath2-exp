@@ -2,7 +2,7 @@ x-common: &common
   tty: true
   restart: on-failure
 
-x-app-service: &app-service
+x-app-service:
   <<: *common
   env_file:
   - .env

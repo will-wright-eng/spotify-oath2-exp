@@ -9,9 +9,9 @@
 ## setup
 
 - go to the [spotify developer dashboard](https://developer.spotify.com/dashboard) and create an app
-    - website: `http://localhost:8000`
-    - redirect uri: `http://localhost:8000/auth/callback`
-    - apis: web api, web playback sdk
+  - website: `http://localhost:8000`
+  - redirect uri: `http://localhost:8000/auth/callback`
+  - apis: web api, web playback sdk
 
 ```bash
 cp .env.example .env

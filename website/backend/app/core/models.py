@@ -1,7 +1,8 @@
-from typing import Optional, List
-from sqlmodel import SQLModel, Field, Relationship
-from pydantic import BaseModel
 import time
+from typing import List, Optional
+
+from pydantic import BaseModel
+from sqlmodel import Field, SQLModel, Relationship
 
 
 class UserBase(SQLModel):
