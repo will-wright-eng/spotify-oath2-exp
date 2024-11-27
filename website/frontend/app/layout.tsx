@@ -1,13 +1,16 @@
-'use client'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { ThemeProvider } from "@/components/theme-provider"
+import { Header } from '@/components/layout/header'
+import { Providers } from '@/components/providers'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { Header } from "@/components/layout/header"
+const inter = Inter({ subsets: ['latin'] })
 
-const inter = Inter({ subsets: ["latin"] })
-
-const queryClient = new QueryClient()
+export const metadata: Metadata = {
+  title: 'Spotify Dashboard',
+  description: 'Your personal Spotify dashboard',
+}
 
 export default function RootLayout({
   children,
@@ -15,15 +18,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <html lang="en">
-        <body className={inter.className}>
-          <Header />
-          <main className="container mx-auto px-4 py-8">
-            {children}
-          </main>
-        </body>
-      </html>
-    </QueryClientProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Providers>
+            <div className="relative min-h-screen flex flex-col">
+              <Header />
+              <main className="flex-1">
+                <div className="container mx-auto py-4">
+                  {children}
+                </div>
+              </main>
+            </div>
+          </Providers>
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }
