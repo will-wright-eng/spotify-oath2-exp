@@ -1,0 +1,50 @@
+x-common: &common
+  tty: true
+  restart: on-failure
+
+x-app-service: &app-service
+  <<: *common
+  env_file:
+  - .env
+
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+    - ./backend:/app/:cached
+    env_file: .env
+    ports:
+    - "${BACKEND_PORT}:${BACKEND_PORT}"
+    command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
+
+  frontend:
+    <<: *common
+    build: ./frontend
+    expose:
+    - "3000"
+    volumes:
+    - ./frontend/app:/app/app
+    - ./frontend/lib:/app/lib
+    - ./frontend/components:/app/components
+    depends_on:
+    - backend
+
+  nginx:
+    <<: *common
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+    - "80:80"
+    depends_on:
+    - frontend
+    - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s

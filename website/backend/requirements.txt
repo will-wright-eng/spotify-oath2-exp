@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic[email]
+httpx
+sqlmodel
+aiohttp
+spotipy
+passlib
+python-jose
