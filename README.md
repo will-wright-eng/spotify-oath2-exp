@@ -2,6 +2,9 @@
 
 A full-stack application demonstrating Spotify OAuth2 authentication flow with a FastAPI backend and Next.js frontend.
 
+![dashbaord](./images/dashboard.png)
+![playlist](./images/playlists.png)
+
 ## Architecture
 
 - **Frontend**: Next.js application with TypeScript and Tailwind CSS
